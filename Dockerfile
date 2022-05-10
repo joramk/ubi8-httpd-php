@@ -8,8 +8,9 @@ LABEL   name="RHEL UBI 8 - Latest base Apache / Remi PHP 8.1" \
         build-date="20220510" \
         maintainer="joramk@gmail.com"
 
-RUN {	dnf --disableplugin=subscription-manager install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; \
-        dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
+RUN {   dnf --disableplugin=subscription-manager update -y; \
+        dnf --disableplugin=subscription-manager install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; \
+        dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
         dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
         dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd php:remi-8.1; \
 	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common php-pdo php-process php-soap; \
