@@ -1,2 +1,2 @@
 #!/bin/bash
-docker push joramk/ubi8-httpd-php:8.1
+docker push joramk/ubi8-httpd-php:8.0
