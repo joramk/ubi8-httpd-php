@@ -1,0 +1,3 @@
+#!/bin/bash
+docker pull registry.access.redhat.com/ubi8/ubi-init
+docker build --no-cache . -t joramk/ubi8-httpd-php:7.4

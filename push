@@ -1,0 +1,3 @@
+#!/bin/bash
+docker push joramk/ubi8-httpd-php:7.4
+
