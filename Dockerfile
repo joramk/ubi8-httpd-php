@@ -1,4 +1,4 @@
-FROM    registry.access.redhat.com/ubi8/ubi:8.1
+FROM    registry.access.redhat.com/ubi8/ubi-init
 MAINTAINER joramk@gmail.com
 ENV     container docker
 
