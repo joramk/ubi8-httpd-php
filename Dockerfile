@@ -1,12 +1,11 @@
 FROM    registry.access.redhat.com/ubi8/ubi-init
-#FROM	joramk/ubi8-base
 MAINTAINER joramk@gmail.com
 ENV     container docker
 
 LABEL   name="RHEL UBI 8 - Latest base Apache / Remi PHP 7.4" \
         vendor="https://github.com/joramk/ubi8-httpd-php" \
         license="none" \
-        build-date="20220117" \
+        build-date="20220510" \
         maintainer="joramk@gmail.com"
 
 RUN	dnf --disableplugin=subscription-manager update -y
@@ -29,6 +28,4 @@ RUN {	mkdir /run/php-fpm && \
 }
 
 EXPOSE  80
-STOPSIGNAL SIGRTMIN+3
-#CMD	php-fpm & httpd -D FOREGROUND
 CMD	/sbin/init
