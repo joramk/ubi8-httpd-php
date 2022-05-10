@@ -12,7 +12,7 @@ RUN {	dnf --disableplugin=subscription-manager install -y https://dl.fedoraproje
         dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
         dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
         dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd php:remi-8.1; \
-	dnf --disableplugin=subscription-manager install -y --nogpgcheck hostname php php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common php-pdo php-process php-soap; \
+	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common php-pdo php-process php-soap; \
         dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
 	rpmconf -a -c -u use_maintainer; \
 }
