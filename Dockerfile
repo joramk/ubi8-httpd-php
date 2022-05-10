@@ -28,4 +28,5 @@ RUN {	mkdir /run/php-fpm && \
 }
 
 EXPOSE  80
-CMD	/sbin/init
+STOPSIGNAL SIGRTMIN+3
+CMD	[ "/sbin/init" ]
