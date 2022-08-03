@@ -9,7 +9,7 @@ LABEL   name="RHEL UBI 8 - Latest base Apache / Remi PHP 8.2" \
         maintainer="joramk@gmail.com"
 
 
-RUN {   dnf --disableplugin=subscription-manager remove subscription-manager python3-subscription-manager-rhsm; \
+RUN {   sed -i 's/enabled=1/enabled=0/g' /etc/yum/pluginconf.d/subscription-manager.conf; \
 	dnf --disableplugin=subscription-manager update -y; \
 }
 
@@ -17,8 +17,8 @@ RUN {	dnf --disableplugin=subscription-manager install -y https://dl.fedoraproje
         dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
         dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
         dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
-        dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd php:remi-8.2; \
-	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common php-pdo php-process php-soap; \
+	dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd; \
+	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php82-php php82-php-json php82-php-cli php82-php-mbstring php82-php-mysqlnd php82-php-gd php82-php-xml php82-php-bcmath php82-php-common php82-php-pdo php82-php-process php82-php-soap php82-syspaths php82-php-fpm; \
         dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
 	rpmconf -a -c -u use_maintainer; \
 }
@@ -28,7 +28,7 @@ RUN {	mkdir /run/php-fpm && \
 	chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm && \
 	/usr/libexec/httpd-ssl-gencerts; \
 	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
-	systemctl enable httpd php-fpm; \
+	systemctl enable httpd; \
 }
 
 EXPOSE  80
