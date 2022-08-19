@@ -8,6 +8,8 @@ LABEL   name="RHEL UBI 8 - Latest base Apache / Remi PHP 8.0" \
         build-date="20220510" \
         maintainer="joramk@gmail.com"
 
+COPY	docker-entrypoint.sh /
+
 RUN {	dnf --disableplugin=subscription-manager update -y; \
 	dnf --disableplugin=subscription-manager install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; \
         dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
@@ -24,11 +26,11 @@ RUN {	dnf --disableplugin=subscription-manager update -y; \
 RUN {	mkdir /run/php-fpm && \
 	chgrp -R 0 /var/log/httpd /var/run/httpd /run/php-fpm && \
 	chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm && \
-	/usr/libexec/httpd-ssl-gencerts; \
 	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
 	systemctl enable httpd php-fpm; \
 }
 
-EXPOSE  80
+EXPOSE     80
 STOPSIGNAL SIGRTMIN+3
-CMD     [ "/sbin/init" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD        [ "/sbin/init" ]
