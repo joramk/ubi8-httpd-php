@@ -5,7 +5,7 @@ ENV     container docker
 LABEL   name="RHEL UBI 8 - Latest base Apache / Remi PHP 8.2" \
         vendor="https://github.com/joramk/ubi8-httpd-php" \
         license="none" \
-        build-date="20220510" \
+        build-date="20230108" \
         maintainer="joramk@gmail.com"
 
 
