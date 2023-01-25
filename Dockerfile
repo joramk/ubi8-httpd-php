@@ -26,7 +26,7 @@ RUN {   dnf --disableplugin=subscription-manager update -y; \
         rpmconf -a -c -u use_maintainer; \
 }
 
-COPY    docker-entrypoint.sh /
+COPY	docker-entrypoint.sh /
 
 RUN {	chmod +x /docker-entrypoint.sh && mkdir /run/php-fpm && \
 	chgrp -R 0 /var/log/httpd /var/run/httpd /run/php-fpm && \
