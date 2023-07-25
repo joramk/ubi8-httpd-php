@@ -23,6 +23,11 @@ RUN {	dnf --disableplugin=subscription-manager update -y; \
 	rpmconf -a -c -u use_maintainer; \
 }
 
+RUN {   rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022; \
+        dnf --disableplugin=subscription-manager install -y https://repo.mysql.com/mysql80-community-release-el8-1.noarch.rpm; \
+        dnf --disableplugin=subscription-manager install -y mysql; \
+}
+
 RUN {	mkdir /run/php-fpm && \
 	chgrp -R 0 /var/log/httpd /var/run/httpd /run/php-fpm && \
 	chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm && \
