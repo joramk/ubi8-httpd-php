@@ -22,17 +22,11 @@ RUN {   dnf --disableplugin=subscription-manager update -y; \
         dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
         rpmconf -a -c -u use_maintainer; \
 }
-#RUN {	dnf --disableplugin=subscription-manager install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; \
-#        dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
-#        dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
-#        dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
-#        dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd; \
-#        dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php81-php \
-#                php81-php-json php81-php-cli php81-php-mbstring php81-php-mysqlnd php81-php-gd php81-php-xml php81-php-bcmath php81-php-common \
-#                php81-php-mcrypt php81-php-pear php81-php-xmlrpc php81-php-zip php81-php-brotli php81-php-pdo php81-php-process php81-php-soap php81-php-zip; \
-#        dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
-#        rpmconf -a -c -u use_maintainer; \
-#}
+
+RUN {   rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022; \
+        dnf --disableplugin=subscription-manager install -y https://repo.mysql.com/mysql80-community-release-el8-1.noarch.rpm; \
+        dnf --disableplugin=subscription-manager install -y mysql; \
+}
 
 RUN {	mkdir /run/php-fpm && \
 	chgrp -R 0 /var/log/httpd /var/run/httpd && \
