@@ -26,6 +26,11 @@ RUN {   dnf --disableplugin=subscription-manager update -y; \
         rpmconf -a -c -u use_maintainer; \
 }
 
+RUN {	rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022; \
+	dnf --disableplugin=subscription-manager install -y https://repo.mysql.com/mysql80-community-release-el8-1.noarch.rpm; \
+	dnf --disableplugin=subscription-manager install -y mysql; \
+}
+
 COPY	docker-entrypoint.sh /
 
 RUN {	chmod +x /docker-entrypoint.sh && mkdir /run/php-fpm && \
