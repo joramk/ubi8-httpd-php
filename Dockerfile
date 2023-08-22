@@ -16,8 +16,8 @@ RUN {	dnf --disableplugin=subscription-manager update -y; \
 	dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
         dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
         dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd php:remi-8.0; \
-	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php \
-		php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common \
+	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname nano vim php php-intl \
+		php-json php-cli php-mbstring php-mysqlnd php-gd php-xml php-bcmath php-common php-pecl-xdebug3 \
 		php-mcrypt php-pear php-xmlrpc php-zip php-brotli php-pdo php-process php-soap php-zip; \
         dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
 	rpmconf -a -c -u use_maintainer; \
@@ -33,6 +33,7 @@ RUN {	mkdir /run/php-fpm && \
 	chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm && \
 	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
 	systemctl enable httpd php-fpm; \
+	sed -i 's/zend_extension=xdebug.so/;zend_extension=xdebug.so/g' /etc/php.d/15-xdebug.ini; \
 }
 
 EXPOSE     80
