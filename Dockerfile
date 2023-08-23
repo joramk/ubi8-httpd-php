@@ -33,6 +33,8 @@ RUN {   sed -i 's/enabled=1/enabled=0/g' /etc/yum/pluginconf.d/subscription-mana
 	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
 	systemctl enable httpd; \
 	sed -i 's/zend_extension=xdebug.so/;zend_extension=xdebug.so/g' /etc/php.d/15-xdebug.ini; \
+	touch /var/log/php-fpm/error.log /var/log/php-fpm/www-error.log; \
+	chown apache:apache /var/log/php-fpm/www-error.log; \
 }
 
 EXPOSE		80
