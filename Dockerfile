@@ -29,8 +29,6 @@ RUN {   sed -i 's/enabled=1/enabled=0/g' /etc/yum/pluginconf.d/subscription-mana
 	chmod +x /docker-entrypoint.sh && mkdir /run/php-fpm && \
 	chgrp -R 0 /var/log/httpd /var/run/httpd /run/php-fpm && \
 	chmod -R g=u /var/log/httpd /var/run/httpd /run/php-fpm && \
-	/usr/libexec/httpd-ssl-gencerts; \
-	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
 	systemctl enable httpd; \
 	sed -i 's/zend_extension=xdebug.so/;zend_extension=xdebug.so/g' /etc/php.d/15-xdebug.ini; \
 	touch /var/log/php-fpm/error.log /var/log/php-fpm/www-error.log; \
