@@ -12,11 +12,11 @@ COPY	docker-entrypoint.sh /
 
 RUN {   dnf --disableplugin=subscription-manager update -y; \
         dnf --disableplugin=subscription-manager install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; \
-        dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
+	dnf --disableplugin=subscription-manager install -y dnf-plugin-ovl; \
         dnf --disableplugin=subscription-manager install -y http://rpms.famillecollet.com/enterprise/remi-release-8.rpm; \
-        dnf --disableplugin=subscription-manager repolist --nogpgcheck --enablerepo=remi; \
-        dnf --disableplugin=subscription-manager module -y --nogpgcheck install httpd php:remi-7.4; \
-	dnf --disableplugin=subscription-manager install -y --nogpgcheck rpmconf hostname php php-json php-cli php-mbstring php-mysqlnd \
+        dnf --disableplugin=subscription-manager repolist --enablerepo=remi; \
+        dnf --disableplugin=subscription-manager module -y install httpd php:remi-7.4; \
+	dnf --disableplugin=subscription-manager install -y rpmconf hostname php php-json php-cli php-mbstring php-mysqlnd \
 		php-gd php-xml php-bcmath php-common php-pdo php-process php-soap php-intl php-pecl-xdebug3; \
         dnf --disableplugin=subscription-manager clean all; rm -rf /var/cache/yum; \
 	rpmconf -a -c -u use_maintainer; \
@@ -39,4 +39,4 @@ EXPOSE     80
 STOPSIGNAL SIGRTMIN+3
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD        [ "/sbin/init" ]
-HEALTHCHECK CMD [ "systemctl is-active --quiet httpd php-fpm" ]
+HEALTHCHECK CMD [ "/usr/bin/systemctl is-active --quiet httpd php-fpm" ]
