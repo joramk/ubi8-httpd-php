@@ -31,6 +31,8 @@ RUN {	dnf --disableplugin=subscription-manager update -y; \
 	ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
 	systemctl enable httpd php-fpm; \
 	sed -i 's/zend_extension=xdebug.so/;zend_extension=xdebug.so/g' /etc/php.d/15-xdebug.ini; \
+        touch /var/log/php-fpm/error.log /var/log/php-fpm/www-error.log; \
+        chown apache:apache /var/log/php-fpm/www-error.log; \
 }
 
 EXPOSE		80
