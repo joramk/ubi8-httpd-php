@@ -39,4 +39,4 @@ EXPOSE		80
 STOPSIGNAL	SIGRTMIN+3
 ENTRYPOINT	[ "/docker-entrypoint.sh" ]
 CMD		[ "/sbin/init" ]
-HEALTHCHECK CMD [ "/usr/bin/systemctl is-active --quiet httpd" ]
+HEALTHCHECK CMD /usr/bin/systemctl is-active --quiet httpd php-fpm || exit 1
